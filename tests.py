@@ -1,3 +1,6 @@
+# Python Techdegree Project 4 - Test File
+# Developed by: Luke Fisher
+
 import datetime
 import io
 import sys
@@ -30,6 +33,12 @@ class WorkLogTests(unittest.TestCase):
         with patch('builtins.input', side_effect=['','100']):
             result = work_log.get_valid_time()
         self.assertEqual(result, 100)
+        
+        
+    def test_invalid_search_choice_input(self):
+        with patch('builtins.input', side_effect=['','2']):
+            result = work_log.search_entries_input()
+        self.assertEqual(result, 2)
         
         
     def test_add_entry(self):
@@ -115,13 +124,24 @@ class WorkLogTests(unittest.TestCase):
         self.assertEquals(result, 0)
         
     
-#    def test_display_results_true(self):
-#        results = work_log.display_results(result)
-#        self.assertIsInstance(mock_stdout.getvalue(), "Employee Name: {}\n"
-#                  "Task Name: {}\n"
-#                  "Task Time: {}\n"
-#                  "Task Notes: {}\n"
-#                  "Task Date: {}\n\n")
+    def test_display_results_one_item(self):
+        results = list(work_log.Database.select())
+        result = results[0]
+    
+        test_template = (
+            "Here are your results!\n\n"
+            "Employee Name: {}\n"
+            "Task Name: {}\n"
+            "Task Time: {}\n"
+            "Task Notes: {}\n"
+            "Task Date: {}\n\n"
+            "\nTotal amount of matches: {}\n\n"
+        ).format(result.employee_field,
+            result.name, result.time, result.notes, result.date, len(results))
+
+        with patch('sys.stdout', new_callable=io.StringIO) as mock:
+            work_log.display_results(results)
+            self.assertEqual(test_template, mock.getvalue())
         
     
     def tearDown(self):

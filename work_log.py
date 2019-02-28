@@ -1,3 +1,6 @@
+# Python Techdegree Project 4 - Worklog Database
+# Developed by: Luke Fisher
+
 import os
 import datetime
 
@@ -64,6 +67,7 @@ def main():
                 clear()
                 # Add Entry
                 employee_field = input("Please enter an employee name for this task: ")
+                clear()
                 name = input("Please enter a task name: ")
                 time = get_valid_time()
                 notes = input("Please enter any notes for this task (optional): ")
