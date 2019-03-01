@@ -99,8 +99,8 @@ def main():
                     while True:
                         user_input = input("Please type a phrase to search: ")
                         if user_input:
-                            break
                             clear()
+                            break
                         elif user_input.strip() == '':
                             clear()
                             print("You didn't type anything!! ")
@@ -111,9 +111,11 @@ def main():
                     for name in all_employees():
                         print(name)
                     user_input = input("Please enter the name of the employee you'd like to see entries about: ")
-                    result = search_by_employee(user_input)                
+                    result = search_by_employee(user_input)
+                elif choice2 == 5:
+                    continue
                 clear()
-                display_results(result)                
+                display_results(result)
             elif choice == 3:
                 break
         except ValueError:
@@ -164,7 +166,7 @@ def search_entries_input():
             # Go back to main menu option
             elif search_choice == 5:
                 clear()
-                return None
+                break
         except ValueError:
             clear()
             search_choice = None
